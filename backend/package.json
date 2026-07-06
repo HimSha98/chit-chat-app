@@ -1,0 +1,33 @@
+{
+  "name": "ca-backend",
+  "version": "1.0.0",
+  "description": "- 🔐 Secure User Authentication (JWT)\r - 💬 Real-Time Messaging with Socket.IO\r - 🟢 Online/Offline User Status\r - 📷 Image Sharing\r - 👤 User Profile Management\r - 🔔 Instant Message Delivery\r - ⚡ Zustand for Global State Management\r - 🎨 Responsive UI with Tailwind CSS & DaisyUI\r - 🤖 Arcjet Bot Detection\r - 📧 Email Validation\r - 🚦 Rate Limiting\r - 🔒 Protected Routes & Secure APIs\r - 📱 Mobile-Friendly Design",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HimSha98/chat-app-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/HimSha98/chat-app-backend/issues"
+  },
+  "homepage": "https://github.com/HimSha98/chat-app-backend#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
