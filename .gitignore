@@ -3,6 +3,8 @@ node_modules/
 dist/
 build/
 
+backend/.env
+
 *.log
 .vscode/
 .idea/
