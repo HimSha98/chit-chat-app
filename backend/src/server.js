@@ -21,7 +21,11 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
     // HS FOR ANY OTHER ROUTE OTHER THAN API ROUTES WE WILL SERVER INDEX.HTML
-    app.get ("*", (req, res) => {
+    // app.get ("*", (req, res) => {
+    //     res.sendFile(path.join(__dirname, "../frontend","dist","index.html"));
+    // });
+    // HS USING UNDERSCORE INSTEAD OF REQ AS WE ARE JUST DOING CONNECTION NOT REQUESTING ANYTHING
+    app.get ("*", (_, res) => {
         res.sendFile(path.join(__dirname, "../frontend","dist","index.html"));
     });
 }
