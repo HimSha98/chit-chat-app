@@ -1,11 +1,19 @@
 import mongoose from "mongoose";
+import dns from "node:dns";
 
 export const connectDB = async () => {
     try {
+        // Local development: use Google DNS because the current
+        // network DNS is failing to resolve MongoDB SRV records.
+        if (process.env.NODE_ENV !== "production") {
+            dns.setServers(["8.8.8.8", "8.8.4.4"]);
+        }
+
         const conn = await mongoose.connect(process.env.MONGO_URI);
-        console.log("MongoDB Connected", conn.connection.host);
+
+        console.log("MongoDB Connected:", conn.connection.host);
     } catch (error) {
-        console.error("Error connection to MONGODB:", error);
-        process.exit(1); // HS 1 STATUS CODE MEANS FAIL AND 0 MEANS SUCCESS
+        console.error("Error connecting to MongoDB:", error);
+        process.exit(1); // HS 1 STATUS CODE MEANS FAIL, 0 MEANS SUCCESS
     }
-}
+};

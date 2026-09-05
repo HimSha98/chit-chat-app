@@ -14,6 +14,8 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const __dirname = path.resolve();
 
+app.use(express.json()); // HS A MIDDLEWARE WE ARE CALLING TO GET THE ACCESS TO THE FIELDS THAT USER SENDS. (req.body)
+
 app.use('/api/auth/', authRoutes);
 app.use('/api/messages', messageRoutes)
 
