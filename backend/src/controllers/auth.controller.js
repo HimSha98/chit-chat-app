@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import bcrypt from "bcryptjs";
+import { generateToken } from "../lib/utils.js";
 
 export const signup = async (req, res) => {
     const { fullName, email, password } = req.body;
@@ -24,7 +26,36 @@ export const signup = async (req, res) => {
             return res.status(400).json({ message: "Email Already Existed!"});
         }
 
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const newUser = await User({
+            fullName,
+            email,
+            password:hashedPassword,
+        })
+
+        if(newUser) {
+            // generateToken(newUser?._id, res);
+            // await newUser.save(); // HS SAVE NEW USER TO THE DATABASE
+
+            // HS PERSIST USER FIRST THEN ISSUE AUTH COOKIE
+            const savedUser = await newUser.save();
+            generateToken(savedUser?._id, res);
+
+            res.status(201).json({ 
+                _id: newUser?._id,
+                fullName: newUser?.fullName,
+                email: newUser?.email,
+                profilePic: newUser?.profilePic,
+             }); // HS 201 MEANS SOMETHING IS CREATED
+
+        } else{
+            res.status(400).json({ message: "Invalid User Data!"});
+        }
+
     } catch(error) {
-        
+        console.error("Error in signup controller function: ", error);
+        res.status(500).json({ message: "Internal Server Error!"});
     }
 };

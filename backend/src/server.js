@@ -33,9 +33,20 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(PORT, () => {
-    // console.log("Server is running on this port: ", PORT);
-    console.log("Server running on port:", PORT);
-    connectDB();
-})
+// app.listen(PORT, () => {
+//     // console.log("Server is running on this port: ", PORT);
+//     console.log("Server running on port:", PORT);
+//     connectDB();
+// })
+
+connectDB()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log("Server running on port:", PORT);
+        });
+    })
+    .catch((err) => {
+        console.error("Failed to connect to Mongodb:", err);
+        process.exit(1); // HS 1 MEANS FALSE
+    })
 // console.log(process, "this is the process");
