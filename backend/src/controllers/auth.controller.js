@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../lib/utils.js";
+import { sendWelcomeEmail } from "../emails/emailHandlers.js";
+import { ENV } from "../lib/env.js"
 
 export const signup = async (req, res) => {
     const { fullName, email, password } = req.body;
@@ -48,7 +50,14 @@ export const signup = async (req, res) => {
                 fullName: newUser?.fullName,
                 email: newUser?.email,
                 profilePic: newUser?.profilePic,
-             }); // HS 201 MEANS SOMETHING IS CREATED
+            }); // HS 201 MEANS SOMETHING IS CREATED
+
+            try {
+                await sendWelcomeEmail(savedUser?.email, savedUser?.fullName, ENV.CLIENT_URL)
+            } catch (err) {
+                console.error("Failed to send email!", err)
+            }
+             
 
         } else{
             res.status(400).json({ message: "Invalid User Data!"});
