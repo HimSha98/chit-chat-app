@@ -7,15 +7,18 @@ import messageRoutes from "./routes/message.route.js"
 import { connectDB } from "./lib/db.js";
 import { ENV } from "./lib/env.js";
 
+import cookieParser from 'cookie-parser';
+
 const PORT = ENV.PORT || 3000;
 
 const app = express();
 const __dirname = path.resolve();
 
 app.use(express.json()); // HS A MIDDLEWARE WE ARE CALLING TO GET THE ACCESS TO THE FIELDS THAT USER SENDS. (req.body)
+app.use(cookieParser());
 
 app.use('/api/auth/', authRoutes);
-app.use('/api/messages', messageRoutes)
+app.use('/api/messages', messageRoutes);
 
 // HS MAKE READY FOR THE DEPLOYMENT
 if (ENV.NODE_ENV === 'production') {
