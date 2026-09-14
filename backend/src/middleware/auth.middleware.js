@@ -6,7 +6,7 @@ import { ENV } from '../lib/env.js';
 export const protectRoute = async (req, res, next) => {
     try {
         // HS CHECK IF TOKEN EXISTED OR NOT
-        const token = req.cookie.jwt;
+        const token = req.cookies.jwt;
         if (!token) return res.status(401).json({message: "Unauthorized - No Token Provided!"});
 
         // HS CHECK IF TOKEN IS VALID OR NOT
